@@ -20,23 +20,15 @@ if [ $stage -le 1 ]; then
     echo "################"
     echo "##Scoring PESQ##"
     echo "################"
-
-    for ref in score/clean/*
+    ref="score/tmp/*"
+    deg="score/clean/*"
+    
+    i=0
+    for Path in "${ref[@]}"
     do
-        for deg in score/tmp/*
-        do
-            if [[ -f $file ]]; then
-              python3 score_pesq.py $ref $deg 
-            fi
-        done
+        python3 score_pesq.py ${Path} ${deg[i]}
+        let i++
     done
 
-echo "Stage1: DONE!"
-fi
-
-if [ $stage -le 1 ]; then
-    echo "###############"
-    echo "##Scoring WER##"
-    echo "###############"
-
+echo "Scoring PESQ: DONE!"
 fi
